@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.LongAccumulator;
 
 /**
  * Library responsible for manage the loans and the users.
@@ -52,6 +53,7 @@ public class Library {
         return false;
         }
 
+
     /**
      * This method creates a new loan with for the User identify by the userId and the book identify by the isbn,
      * the loan should be store in the list of loans, to successfully create a loan is required to validate that the
@@ -66,9 +68,27 @@ public class Library {
      * @return The new created loan.
      */
     public Loan loanABook(String userId, String isbn) {
-        //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
+        User user = finduser(userId);
+        if (user == null) {
+            return null;
+        }
+        Book book = findBook(isbn);
+        if (book == null || books.get(book,0) == 0) {
+            return null;
+        }
+        
+        for (Loan loan : loans) {
+            if (loan.getUser().getId().equals(userId) && loan.getBook().getIsbn().equals(isbn)
+                && loan.getStatus() == LoanStatus.ACTIVE) {
+                return null; // El usuario ya tiene un préstamo activo para este libro
+            }
+        }
+        books.put(book, books.get(book) - 1);
+
+        Loan newLoan = new Loan(user, book, LoanStatus.ACTIVE);
+
         return null;
-    }
+        }
 
     /**
      * This method return a loan, meaning that the amount of books should be increased by 1, the status of the Loan
