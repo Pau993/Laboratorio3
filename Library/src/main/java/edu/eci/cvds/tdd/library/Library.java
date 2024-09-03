@@ -34,10 +34,23 @@ public class Library {
      *
      * @return true if the book was stored false otherwise.
      */
-    public boolean addBook(Book book) {
-        //TODO Implement the logic to add a new book into the map.
+
+        public boolean addBook(Book book) {
+            if (book == null) {
+                return false; 
+            }
+            // Verifica si el libro ya está en la colección
+            if (books.containsKey(book)) {
+                // Incrementa la cantidad en 1
+                books.put(book, books.get(book) + 1);
+            } else {
+                // Agrega el libro con una cantidad inicial de 1
+                books.put(book, 1);
+            }
+            return true; // La operación fue exitosa
+    
         return false;
-    }
+        }
 
     /**
      * This method creates a new loan with for the User identify by the userId and the book identify by the isbn,
