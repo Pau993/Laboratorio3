@@ -1,5 +1,4 @@
 package edu.eci.cvds.tdd.library.user;
-
 public class User {
     private String name;
     private String id;
@@ -19,4 +18,5 @@ public class User {
     public void setId(String id) {
         this.id = id;
     }
-}
+} 
+    
