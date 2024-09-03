@@ -87,9 +87,7 @@ public class Library {
 
         Loan newLoan = new Loan(user, book, LoanStatus.ACTIVE);
 
-        return null;
         }
-
     /**
      * This method return a loan, meaning that the amount of books should be increased by 1, the status of the Loan
      * in the loan list should be {@link edu.eci.cvds.tdd.library.loan.LoanStatus#RETURNED} and the loan return
@@ -100,8 +98,12 @@ public class Library {
      * @return the loan with the RETURNED status.
      */
     public Loan returnLoan(Loan loan) {
-        //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
-        return null;
+        if (loan == null) {
+            return null;
+        }
+        loan.setStatus(LoanStatus.RETURNED);
+        loan.setReturnDate(LocalDate.now());
+        return loan;
     }
 
     public boolean addUser(User user) {
