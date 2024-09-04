@@ -1,5 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.eci.cvds.tdd</groupId>
   <artifactId>Library</artifactId>
@@ -7,10 +8,18 @@
   <version>1.0-SNAPSHOT</version>
   <name>Library</name>
   <url>http://maven.apache.org</url>
+  
   <properties>
-  <maven.compiler.target>16</maven.compiler.target>
-  <maven.compiler.source>16</maven.compiler.source>
+    <maven.compiler.target>16</maven.compiler.target>
+    <maven.compiler.source>16</maven.compiler.source>
+    <!-- Configuraciones de Sonar -->
+    <sonar.projectKey>library</sonar.projectKey>
+    <sonar.projectName>library</sonar.projectName>
+    <sonar.host.url>http://localhost:9000</sonar.host.url>
+    <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.coverage.exclusions>src//configurators/*</sonar.coverage.exclusions>
   </properties>
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -19,6 +28,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
   <build>
     <plugins>
       <plugin>
@@ -56,7 +66,7 @@
                     <limit>
                       <counter>CLASS</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>0.85</minimum> <!-- Porcentaje mínimo de cobertura -->
+                      <minimum>0.85</minimum><!--Porcentaje mínimo de cubrimiento para construir el proyecto-->
                     </limit>
                   </limits>
                 </rule>
@@ -65,7 +75,14 @@
           </execution>
         </executions>
       </plugin>
+      
+      <!-- Plugin de Sonar -->
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.9.1.2184</version>
+      </plugin>
+      
     </plugins>
   </build>
-
 </project>
