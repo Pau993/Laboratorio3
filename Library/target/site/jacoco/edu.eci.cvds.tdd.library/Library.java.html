@@ -37,12 +37,12 @@ public class Library {
      * @return true if the book was stored false otherwise.
      */
     public boolean addBook(Book book) {
-<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (book == null) {</span>
-<span class="nc" id="L41">            return false;</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (book == null) {</span>
+<span class="fc" id="L41">            return false;</span>
         }
 <span class="fc bfc" id="L43" title="All 2 branches covered.">        if (books.containsKey(book)) {</span>
 <span class="fc" id="L44">            books.put(book, books.get(book) + 1);</span>
-        } else {
+<span class="fc" id="L45">        } else {</span>
 <span class="fc" id="L46">            books.put(book, 1);</span>
         }
 <span class="fc" id="L48">        return true;</span>
@@ -64,26 +64,26 @@ public class Library {
 public Loan loanABook(String userId, String isbn) {
     // Validar que el usuario existe
 <span class="fc" id="L66">    User user = null;</span>
-<span class="pc bpc" id="L67" title="1 of 2 branches missed.">    for (User u : users) {</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">    for (User u : users) {</span>
 <span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if (u.getId().equals(userId)) {</span>
 <span class="fc" id="L69">            user = u;</span>
 <span class="fc" id="L70">            break;</span>
         }
-<span class="nc" id="L72">    }</span>
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">    if (user == null) {</span>
-<span class="nc" id="L74">        return null; // Usuario no existe</span>
+    }
+<span class="fc bfc" id="L73" title="All 2 branches covered.">    if (user == null) {</span>
+<span class="fc" id="L74">        return null; // Usuario no existe</span>
     }
 
     // Validar que el libro está disponible
 <span class="fc" id="L78">    Book book = null;</span>
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">    for (Book b : books.keySet()) {</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">    for (Book b : books.keySet()) {</span>
 <span class="pc bpc" id="L80" title="1 of 2 branches missed.">        if (b.getIsbn().equals(isbn)) {</span>
 <span class="fc" id="L81">            book = b;</span>
 <span class="fc" id="L82">            break;</span>
         }
-<span class="nc" id="L84">    }</span>
-<span class="pc bpc" id="L85" title="2 of 4 branches missed.">    if (book == null || books.get(book) == 0) {</span>
-<span class="nc" id="L86">        return null; // Libro no disponible o no existe</span>
+    }
+<span class="fc bfc" id="L85" title="All 4 branches covered.">    if (book == null || books.get(book) == 0) {</span>
+<span class="fc" id="L86">        return null; // Libro no disponible o no existe</span>
     }
 
     // Validar que el usuario no tiene ya un préstamo activo del mismo libro
@@ -91,7 +91,7 @@ public Loan loanABook(String userId, String isbn) {
 <span class="nc bnc" id="L91" title="All 6 branches missed.">        if (loan.getUser().getId().equals(userId) &amp;&amp; loan.getBook().getIsbn().equals(isbn) &amp;&amp; loan.getStatus() == LoanStatus.ACTIVE) {</span>
 <span class="nc" id="L92">            return null; // El usuario ya tiene un préstamo activo de este libro</span>
         }
-<span class="nc" id="L94">    }</span>
+    }
 
     // Crear el nuevo préstamo
 <span class="fc" id="L97">    Loan newLoan = new Loan();</span>
@@ -117,8 +117,8 @@ public Loan loanABook(String userId, String isbn) {
      * @return the loan with the RETURNED status.
      */
     public Loan returnLoan(Loan loan) {
-<span class="pc bpc" id="L120" title="2 of 4 branches missed.">        if (loan == null || !loans.contains(loan)) {</span>
-<span class="nc" id="L121">            return null; // El préstamo no existe en el sistema</span>
+<span class="pc bpc" id="L120" title="1 of 4 branches missed.">        if (loan == null || !loans.contains(loan)) {</span>
+<span class="fc" id="L121">            return null; // El préstamo no existe en el sistema</span>
         }
     
         // Incrementar la cantidad de libros disponibles

@@ -89,4 +89,60 @@ public class LibraryTest extends TestCase {
         assertEquals(LoanStatus.RETURNED, returnedLoan.getStatus());
         assertNotNull(returnedLoan.getReturnDate());
     }
+
+    public void testAddNullBook() {
+        assertFalse(library.addBook(null)); 
+    }
+
+    public void testLoanNonExistentBook() {
+        User user = new User();
+        user.setId("1234");
+        user.setName("John Doe");
+        library.addUser(user);
+    
+        Loan loan = library.loanABook("1234", "000-0000000000"); 
+        assertNull(loan); 
+    }
+
+    public void testLoanBookToNonExistentUser() {
+        Book book = new Book("Effective Java", "Joshua Bloch", "978-0134685991");
+        library.addBook(book);
+    
+        Loan loan = library.loanABook("5678", "978-0134685991"); 
+        assertNull(loan); 
+    }
+
+    public void testLoanSameBookTwiceToSameUser() {
+        User user = new User();
+        user.setId("1234");
+        user.setName("John Doe");
+        library.addUser(user);
+    
+        Book book = new Book("Effective Java", "Joshua Bloch", "978-0134685991");
+        library.addBook(book);
+    
+        Loan firstLoan = library.loanABook("1234", "978-0134685991");
+        assertNotNull(firstLoan);
+    
+        Loan secondLoan = library.loanABook("1234", "978-0134685991");
+        assertNull(secondLoan); 
+    }
+
+    public void testReturnNonExistentLoan() {
+        User user = new User();
+        user.setId("1234");
+        user.setName("John Doe");
+        library.addUser(user);
+    
+        Book book = new Book("Effective Java", "Joshua Bloch", "978-0134685991");
+        library.addBook(book);
+    
+        Loan loan = new Loan(); 
+        loan.setUser(user);
+        loan.setBook(book);
+    
+        Loan returnedLoan = library.returnLoan(loan);
+        assertNull(returnedLoan); 
+    }
+
 }
