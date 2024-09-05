@@ -133,7 +133,14 @@ public Loan loanABook(String userId, String isbn) {
     }
 
     public boolean addUser(User user) {
-        return users.add(user);
+        // Validar si el usuario ya existe en la lista
+        for (User u : users) {
+            if (u.getId().equals(user.getId())) {
+                return false; // El usuario ya existe, retornar false
+            }
+        }
+        return users.add(user); // El usuario no existe, agregarlo y retornar true
     }
+    
 
 }

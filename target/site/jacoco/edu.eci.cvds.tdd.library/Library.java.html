@@ -76,14 +76,14 @@ public Loan loanABook(String userId, String isbn) {
 
     // Validar que el libro está disponible
 <span class="fc" id="L78">    Book book = null;</span>
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">    for (Book b : books.keySet()) {</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">    for (Book b : books.keySet()) {</span>
 <span class="pc bpc" id="L80" title="1 of 2 branches missed.">        if (b.getIsbn().equals(isbn)) {</span>
 <span class="fc" id="L81">            book = b;</span>
 <span class="fc" id="L82">            break;</span>
         }
 <span class="nc" id="L84">    }</span>
-<span class="pc bpc" id="L85" title="2 of 4 branches missed.">    if (book == null || books.get(book) == 0) {</span>
-<span class="nc" id="L86">        return null; // Libro no disponible o no existe</span>
+<span class="fc bfc" id="L85" title="All 4 branches covered.">    if (book == null || books.get(book) == 0) {</span>
+<span class="fc" id="L86">        return null; // Libro no disponible o no existe</span>
     }
 
     // Validar que el usuario no tiene ya un préstamo activo del mismo libro
@@ -117,8 +117,8 @@ public Loan loanABook(String userId, String isbn) {
      * @return the loan with the RETURNED status.
      */
     public Loan returnLoan(Loan loan) {
-<span class="pc bpc" id="L120" title="2 of 4 branches missed.">        if (loan == null || !loans.contains(loan)) {</span>
-<span class="nc" id="L121">            return null; // El préstamo no existe en el sistema</span>
+<span class="pc bpc" id="L120" title="1 of 4 branches missed.">        if (loan == null || !loans.contains(loan)) {</span>
+<span class="fc" id="L121">            return null; // El préstamo no existe en el sistema</span>
         }
     
         // Incrementar la cantidad de libros disponibles
@@ -133,8 +133,15 @@ public Loan loanABook(String userId, String isbn) {
     }
 
     public boolean addUser(User user) {
-<span class="fc" id="L136">        return users.add(user);</span>
+        // Validar si el usuario ya existe en la lista
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        for (User u : users) {</span>
+<span class="pc bpc" id="L138" title="1 of 2 branches missed.">            if (u.getId().equals(user.getId())) {</span>
+<span class="fc" id="L139">                return false; // El usuario ya existe, retornar false</span>
+            }
+<span class="nc" id="L141">        }</span>
+<span class="fc" id="L142">        return users.add(user); // El usuario no existe, agregarlo y retornar true</span>
     }
+    
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
